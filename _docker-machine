@@ -1,0 +1,47 @@
+#compdef docker-machine
+
+local -a _1st_arguments
+_1st_arguments=(
+  "active":"Print which machine is active"
+  "config":"Print the connection config for machine"
+  "create":"Create a machine"
+  "env":"Display the commands to set up the environment for the Docker client"
+  "inspect":"Inspect information about a machine"
+  "ip":"Get the IP address of a machine"
+  "kill":"Kill a machine"
+  "ls":"List machines"
+  "provision":"Re-provision existing machines"
+  "regenerate-certs":"Regenerate TLS Certificates for a machine"
+  "restart":"Restart a machine"
+  "rm":"Remove a machine"
+  "ssh":"Log into or run a command on a machine with SSH."
+  "scp":"Copy files between machines"
+  "start":"Start a machine"
+  "status":"Get the status of a machine"
+  "stop":"Stop a machine"
+  "upgrade":"Upgrade a machine to the latest version of Docker"
+  "url":"Get the URL of a machine"
+  "version":"Show the Docker Machine version or a machine docker version"
+  "help":"Shows a list of commands or help for one command"
+)
+
+_arguments \
+  '(--debug)'{--debug,-D}'[Enable debug mode]' \
+  '(--storage-path)'{--storage-path,-s}'["~/.docker/machine" Configures storage path $MACHINE_STORAGE_PATH]' \
+  '(--tls-ca-cert)--tls-ca-cert[CA to verify remotes against $MACHINE_TLS_CA_CERT]' \
+  '(--tls-ca-key)--tls-ca-key[Private key to generate certificates $MACHINE_TLS_CA_KEY]' \
+  '(--tls-client-cert)--tls-client-cert[Client cert to use for TLS $MACHINE_TLS_CLIENT_CERT]' \
+  '(--tls-client-key)--tls-client-key[Private key used in client TLS auth $MACHINE_TLS_CLIENT_KEY]' \
+  '(--github-api-token)--github-api-token[Token to use for requests to the Github API $MACHINE_GITHUB_API_TOKEN]' \
+  '(--native-ssh)--native-ssh[Use the native (Go-based) SSH implementation. $MACHINE_NATIVE_SSH]' \
+  '(--bugsnag-api-token)--bugsnag-api-token[BugSnag API token for crash reporting $MACHINE_BUGSNAG_API_TOKEN]' \
+  '(--help)'{-h,--help}'[show help]' \
+  '(--version)'{-v,--version}'[print the version]' \
+  '*:: :->subcmds' && return 0
+
+#_arguments '*:: :->command'
+
+if (( CURRENT == 1 )); then
+    _describe -t commands "docker-machine command" _1st_arguments
+    return
+fi
